@@ -5,7 +5,7 @@ import LoadingPage from "../components/LoadingPage";
 const AuthContext = createContext()
 export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true)
-    const [user, setUser] = useState(true)
+    const [user, setUser] = useState(null)
     const [errorMessage,setErrorMessage]= useState(null)
     useEffect(() => {
 

@@ -2,3 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+.custom-icon {
+    width: 6rem;
+    height: 6rem;
+  }
+  .depart-icon {
+    width: 2rem;
+    height: 2rem;
+  }
