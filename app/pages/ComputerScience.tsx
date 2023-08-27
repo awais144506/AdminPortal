@@ -7,7 +7,7 @@ function ComputerScience() {
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col">
       {/* Header */}
-      <div className="bg-blue-500 py-4 text-white text-3xl font-semibold text-center flex items-center justify-center">
+      <div className="bg-[#5B95A9] py-4 text-white text-3xl font-semibold text-center flex items-center justify-center">
       <FaComputer className="text-white depart-icon mr-2"/>
         <span>Computer Science Department</span>
       </div>

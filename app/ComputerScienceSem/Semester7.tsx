@@ -1,17 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaBuildingUser } from 'react-icons/fa6';
-
+import { useNavigate } from 'react-router-dom';
+import { db } from '@/appwrite';
+import { FaChalkboardTeacher } from 'react-icons/fa';
 function Semester7() {
+    const navigate = useNavigate()
     const [selectedSession, setSelectedSession] = useState('');
+    const [morningTimetable, setMorningTimetable] = useState([]);
+    const [eveningTimetable, setEveningTimetable] = useState([]);
+    useEffect(() => {
+        // Load morning timetable from local storage on component mount
+        const storedMorningTimetable = localStorage.getItem('morningTimetable');
+        if (storedMorningTimetable) {
+            setMorningTimetable(JSON.parse(storedMorningTimetable));
+        }
+
+        // Load evening timetable from local storage on component mount
+        const storedEveningTimetable = localStorage.getItem('eveningTimetable');
+        if (storedEveningTimetable) {
+            setEveningTimetable(JSON.parse(storedEveningTimetable));
+        }
+    }, []);
+
+    useEffect(() => {
+        // Save morning timetable to local storage whenever it changes
+        localStorage.setItem('morningTimetable', JSON.stringify(morningTimetable));
+    }, [morningTimetable]);
+
+    useEffect(() => {
+        // Save evening timetable to local storage whenever it changes
+        localStorage.setItem('eveningTimetable', JSON.stringify(eveningTimetable));
+    }, [eveningTimetable]);
 
     const handleSessionChange = (event) => {
         setSelectedSession(event.target.value);
     };
-
-    const [morningTimetable, setMorningTimetable] = useState([]);
-    const [eveningTimetable, setEveningTimetable] = useState([]);
-
-    const handleFormSubmit = (event) => {
+    const handleFormSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
         const newRow = {
@@ -20,6 +44,8 @@ function Semester7() {
             subjectName: formData.get('subjectName'),
             faculty: formData.get('faculty'),
         };
+
+
         if (selectedSession === 'morning') {
             setMorningTimetable([...morningTimetable, newRow]);
         } else if (selectedSession === 'evening') {
@@ -45,21 +71,23 @@ function Semester7() {
     return (
         <div className="bg-gray-100 min-h-screen flex flex-col">
             {/* Header */}
-            <div className="bg-[#E76D58] py-4 text-white text-3xl font-semibold text-center flex items-center justify-center">
+            <div className="bg-[#5B95A9] py-4 text-white text-3xl font-semibold text-center flex items-center justify-center">
                 <FaBuildingUser className="text-white depart-icon mr-2" />
                 <span>Semester 7</span>
             </div>
             <div className="flex-grow flex justify-center items-center">
-                <div className="shadow w-60 h-20 rounded-lg p-4 hover:bg-sky-100 cursor-pointer">
+                <div onClick={() => navigate('/ClassRoom')} className="shadow w-60 h-20 rounded-lg p-4 hover:bg-sky-100 cursor-pointer">
                     <div className="flex items-center justify-center space-x-2">
-                        <h2 className="font-semibold text-xl text-[#4E7AC8]">
-                            Go to Class Room 
+                        <FaChalkboardTeacher className="mt-5 mr-2 mb-5 .depart-icon text-[#5B95A9]" />
+                        <h2 className="font-semibold text-xl text-[#5B95A9]">
+                            Go to Class Room
                         </h2>
                     </div>
                 </div>
             </div>
             {/* Session and Classroom */}
             <div className="flex-grow p-4">
+                <h1 className='text-center text-2xl mb-4 font-bold'>Time Table</h1>
                 <div className="flex justify-center items-center space-x-6">
                     {/* Session Selection */}
                     <div className="flex items-center space-x-2">
@@ -78,28 +106,33 @@ function Semester7() {
                     </div>
                 </div>
 
-                {selectedSession && (
-                    <div className="flex items-center justify-center space-x-2 mt-6">
-                        <label className="block text-gray-700 text-lg font-semibold">
-                            Class Room:
-                        </label>
-                        <input
-                            type="text"
-                            className="px-4 py-2 w-44 border rounded-lg focus:ring focus:ring-blue-200"
-                            placeholder="Enter Classroom"
-                        />
-                    </div>
-                )}
+
+                <div className="flex items-center justify-center space-x-2 mt-6">
+                    <label className="block text-gray-700 text-lg font-semibold">
+                        Class Room:
+                    </label>
+                    <input
+                        type="text"
+                        className="px-4 py-2 w-44 border rounded-lg focus:ring focus:ring-blue-200"
+                        placeholder="Enter Classroom"
+                    />
+                </div>
+
 
                 {/* Timings */}
                 {selectedSession && (
-                    <div className="flex justify-center items-center mt-5">
+                    <div className="flex justify-center flex-col items-center mt-5">
                         <p className="text-gray-600 text-lg">
                             {selectedSession === 'morning'
                                 ? 'Morning Session Timings: 8:00 AM - 12:00 PM'
                                 : 'Evening Session Timings: 1:00 PM - 5:00 PM'}
                         </p>
+                        <h2 className="text-lg font-semibold text-center mt-3">
+                            {selectedSession === 'morning'
+                                ? 'Morning Time Table'
+                                : 'Evening Time Table'}</h2>
                     </div>
+
                 )}
 
 
@@ -107,26 +140,26 @@ function Semester7() {
                 {/* Table */}
 
 
-                {/* Morning Timetable */}
-                {selectedSession === 'morning' && morningTimetable.length > 0 && (
-                    <div className="mt-6">
-                        <h2 className="text-lg font-semibold text-center mb-3">Morning Timetable</h2>
-                        <table className="w-full border-collapse border border-gray-300">
-                            <thead>
-                                <tr className="bg-gray-100">
-                                    <th className="py-2 px-4 border border-gray-300">Day</th>
-                                    <th className="py-2 px-4 border border-gray-300">Start Time</th>
-                                    <th className="py-2 px-4 border border-gray-300">Subject Name</th>
-                                    <th className="py-2 px-4 border border-gray-300">Faculty</th>
-                                </tr>
-                            </thead>
+
+                <div className="mt-6">
+                    <table className="w-full border-collapse border border-gray-300">
+                        <thead>
+                            <tr className="bg-gray-300">
+                                <th className="py-2 px-4 border border-gray-300">Day</th>
+                                <th className="py-2 px-4 border border-gray-300">Start Time</th>
+                                <th className="py-2 px-4 border border-gray-300">Subject Name</th>
+                                <th className="py-2 px-4 border border-gray-300">Faculty</th>
+                                <th className="py-2 px-4 border border-gray-300"></th>
+                            </tr>
+                        </thead>
+                        {selectedSession === 'morning' && morningTimetable.length > 0 && (
                             <tbody>
                                 {morningTimetable.map((row, index) => (
                                     <tr key={index}>
-                                        <td className="py-2 px-4 border border-gray-300">{row.day}</td>
-                                        <td className="py-2 px-4 border border-gray-300">{row.startTime}</td>
-                                        <td className="py-2 px-4 border border-gray-300">{row.subjectName}</td>
-                                        <td className="py-2 px-4 border border-gray-300">{row.faculty}</td>
+                                        <td className="py-2 px-4 border border-gray-300 text-center">{row.day}</td>
+                                        <td className="py-2 px-4 border border-gray-300 text-center">{row.startTime}</td>
+                                        <td className="py-2 px-4 border border-gray-300 text-center">{row.subjectName}</td>
+                                        <td className="py-2 px-4 border border-gray-300 text-center">{row.faculty}</td>
                                         <td className="py-2 px-4 border border-gray-300">
                                             <button
                                                 className="text-red-500"
@@ -138,30 +171,16 @@ function Semester7() {
                                     </tr>
                                 ))}
                             </tbody>
-                        </table>
-                    </div>
-                )}
+                        )}
 
-                {/* Evening Timetable */}
-                {selectedSession === 'evening' && eveningTimetable.length > 0 && (
-                    <div className="mt-6">
-                        <h2 className="text-lg font-semibold text-center mb-3">Evening Timetable</h2>
-                        <table className="w-full border-collapse border border-gray-300">
-                            <thead>
-                                <tr className="bg-gray-100">
-                                    <th className="py-2 px-4 border border-gray-300">Day</th>
-                                    <th className="py-2 px-4 border border-gray-300">Start Time</th>
-                                    <th className="py-2 px-4 border border-gray-300">Subject Name</th>
-                                    <th className="py-2 px-4 border border-gray-300">Faculty</th>
-                                </tr>
-                            </thead>
+                        {selectedSession === 'evening' && eveningTimetable.length > 0 && (
                             <tbody>
                                 {eveningTimetable.map((row, index) => (
                                     <tr key={index}>
-                                        <td className="py-2 px-4 border border-gray-300">{row.day}</td>
-                                        <td className="py-2 px-4 border border-gray-300">{row.startTime}</td>
-                                        <td className="py-2 px-4 border border-gray-300">{row.subjectName}</td>
-                                        <td className="py-2 px-4 border border-gray-300">{row.faculty}</td>
+                                        <td className="py-2 px-4 border border-gray-300 text-center">{row.day}</td>
+                                        <td className="py-2 px-4 border border-gray-300 text-center">{row.startTime}</td>
+                                        <td className="py-2 px-4 border border-gray-300 text-center">{row.subjectName}</td>
+                                        <td className="py-2 px-4 border border-gray-300 text-center">{row.faculty}</td>
                                         <td className="py-2 px-4 border border-gray-300">
                                             <button
                                                 className="text-red-500"
@@ -173,9 +192,11 @@ function Semester7() {
                                     </tr>
                                 ))}
                             </tbody>
-                        </table>
-                    </div>
-                )}
+                        )}
+                    </table>
+                </div>
+
+
                 {selectedSession && (
                     <div className="mt-6">
                         <form onSubmit={handleFormSubmit} className="grid grid-cols-4 gap-4 items-center">
@@ -222,7 +243,7 @@ function Semester7() {
 
                             <button
                                 type="submit"
-                                className="col-span-4 px-6 py-2 bg-[#E76D58] text-white font-semibold rounded-lg hover:bg-[#CC5D4B]"
+                                className="col-span-4 px-6 py-2 bg-[#5B95A9] text-white font-semibold rounded-lg hover:bg-[#34697a]"
                             >
                                 Add Row
                             </button>
@@ -233,13 +254,13 @@ function Semester7() {
                 {/* Submit Button */}
                 {selectedSession && (
                     <div className="mt-6 flex justify-center">
-                        <button className="px-6 py-2 bg-[#E76D58] text-white font-semibold rounded-lg hover:bg-[#CC5D4B]">
+                        <button className="px-6 py-2 bg-[#80B527] text-white font-semibold rounded-lg hover:bg-[#7ca23b]">
                             Submit
                         </button>
                     </div>
                 )}
             </div>
-          
+
         </div>
     );
 }

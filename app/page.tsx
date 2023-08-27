@@ -7,6 +7,7 @@ import PrivateRoutes from './utils/PrivateRoutes';
 import Departments from './components/Departments';
 import ComputerScience from './pages/ComputerScience';
 import Semester7 from './ComputerScienceSem/Semester7';
+import ClassRoom from './ComputerScienceSem/ClassRoom';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route path="/Departments" element={<Departments />} />
               <Route path="/ComputerScience" element={<ComputerScience />} />
               <Route path="/Semester7" element={<Semester7 />} />
+              <Route path="/ClassRoom" element={<ClassRoom />} />
             </Route>
           </Routes>
         </AuthProvider>
