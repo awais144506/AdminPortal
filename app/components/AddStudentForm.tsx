@@ -137,7 +137,7 @@ const AddStudentForm: React.FC<AddStudentFormProps> = ({ onClose, onAddStudent }
           </select>
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-1">Session:</label>
+          <label className="block text-gray-700 font-semibold mb-1">Session Fall (Year)</label>
           <input
             type="text"
             className="px-4 py-2 w-full border rounded-lg focus:ring focus:ring-blue-200"
@@ -188,6 +188,7 @@ const AddStudentForm: React.FC<AddStudentFormProps> = ({ onClose, onAddStudent }
             onChange={handleImageChange}
             required
           />
+          
         </div>
         <div className="flex justify-end">
           <button
