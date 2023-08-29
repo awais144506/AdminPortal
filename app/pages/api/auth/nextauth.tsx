@@ -1,7 +1,7 @@
 
 import { useContext, useState, useEffect, createContext } from "react";
-import { account } from "@/appwrite";
-import LoadingPage from "../components/LoadingPage";
+import { account} from "@/app/appwrite"
+import LoadingPage from "@/app/components/LoadingPage"
 const AuthContext = createContext()
 export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true)
@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
 
        checkUserStatus()
     }, [])
-    const loginUser = async (userInfo) => {
+    const loginUser = async (userInfo: { email: any; password: any; }) => {
         setLoading(true)
         setErrorMessage(null)
       
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
             setUser(accountDetails)
         }catch (error) {
             
-            setErrorMessage("Username or password is incorrect"); // Set error message
+            setErrorMessage("Username or password is incorrect",error); // Set error message
           }
         setLoading(false)
      }

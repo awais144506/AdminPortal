@@ -10,5 +10,4 @@ client
 
 
     export const account = new Account(client);
-   
-    export default client;
+    export const db = new Databases(client)

@@ -1,8 +1,8 @@
 import React from 'react';
-import { useAuth } from '../utils/AuthContext';
+import { useAuth } from '@/app/pages/api/auth/nextauth';
 import {  useNavigate } from 'react-router-dom'
 import { FaBuilding,FaChrome ,FaUsers,FaChalkboardTeacher,FaDoorClosed} from 'react-icons/fa';
-function HomeComponents() {
+function Home() {
   const { user, loginOut } = useAuth();
   const navigate = useNavigate(); 
   return (
@@ -79,4 +79,4 @@ function HomeComponents() {
   );
 }
 
-export default HomeComponents;
+export default Home;

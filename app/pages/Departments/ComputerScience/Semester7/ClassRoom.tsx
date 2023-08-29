@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaComputer, FaMagnifyingGlass } from 'react-icons/fa6';
-import AddStudentForm from '../components/AddStudentForm';
-import UpdateDeleteForm from '../components/UpdateDelete';
+import AddStudentForm from '@/app/components/AddStudentForm';
+import UpdateDeleteForm from '@/app/components/UpdateDelete';
 
 function ClassRoom() {
     const [isModalOpen, setIsModalOpen] = useState(false);

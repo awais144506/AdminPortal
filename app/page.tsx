@@ -1,13 +1,13 @@
 "use client"
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './components/Login';
-import Home from './pages/home';
-import { AuthProvider } from './utils/AuthContext';
-import PrivateRoutes from './utils/PrivateRoutes';
-import Departments from './components/Departments';
-import ComputerScience from './pages/ComputerScience';
-import Semester7 from './ComputerScienceSem/Semester7';
-import ClassRoom from './ComputerScienceSem/ClassRoom';
+import Login from './pages/Login/Page';
+import Home from './pages/Home/HomePage';
+import { AuthProvider } from './pages/api/auth/nextauth';
+import PrivateRoutes from './pages/api/auth/PrivateRoutes';
+import Departments from './pages/Departments/Departments';
+import ComputerScience from './pages/Departments/ComputerScience/ComputerScience';
+import Semester7 from './pages/Departments/ComputerScience/Semester7/Semester7';
+import ClassRoom from './pages/Departments/ComputerScience/Semester7/ClassRoom';
 
 function App() {
   return (
