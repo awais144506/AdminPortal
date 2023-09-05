@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { db, account } from '../appwrite';
+import { db, account,storage } from '../appwrite';
 import { ID } from 'appwrite';
 
 interface AddStudentFormProps {
@@ -21,7 +21,18 @@ const AddStudentForm: React.FC<AddStudentFormProps> = ({ onClose, onAddStudent }
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [image, setImage] = useState(null);
-
+  function dataURItoBlob(dataURI: string) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: mimeString });
+  }
+  
+  
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -36,6 +47,7 @@ const AddStudentForm: React.FC<AddStudentFormProps> = ({ onClose, onAddStudent }
       courses,
       cgpa,
       feeStatus,
+      image
     };
     try {
       // Register User
@@ -61,10 +73,25 @@ const AddStudentForm: React.FC<AddStudentFormProps> = ({ onClose, onAddStudent }
           feeStatus,
         };
     
-        db.createDocument('64e7be0277a594862d45', '64f0f520befd69e9ef44',ID.unique(), studentDocument) // Pass the studentDocument
+        db.createDocument('64e7be0277a594862d45', '64f0f520befd69e9ef44',userId, studentDocument) // Pass the studentDocument
           .then((studentResponse) => {
             console.log('Student created:', studentResponse);
-            // Success
+
+            if (image) {
+            
+              const imageType = 'image/jpg';
+              const blob = dataURItoBlob(image);
+              const storageFile = new File([blob], `${userId}.jpg`, { type: imageType });
+  
+              storage.createFile('64e7be2196c5279bda80', userId, storageFile)
+                .then((fileResponse) => {
+                  console.log('Image uploaded:', fileResponse);
+                  // Success
+                })
+                .catch((error) => {
+                  console.error('Error uploading image:', error);
+                });
+            }
           })
           .catch((error) => {
             console.error('Error creating student:', error);
@@ -131,6 +158,7 @@ const AddStudentForm: React.FC<AddStudentFormProps> = ({ onClose, onAddStudent }
                 className="px-4 py-2 w-full border rounded-lg focus:ring focus:ring-blue-200"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+		placeholder="Email 36502-1234567-8@gcuf.com"
                 required
               />
             </div>
@@ -141,6 +169,7 @@ const AddStudentForm: React.FC<AddStudentFormProps> = ({ onClose, onAddStudent }
                 className="px-4 py-2 w-full border rounded-lg focus:ring focus:ring-blue-200"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+		placeholder="Password ID-Card Number"
                 required
               />
             </div>
