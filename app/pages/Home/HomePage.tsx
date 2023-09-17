@@ -52,7 +52,7 @@ function Home() {
             </div>
             {/* Department content here */}
           </div>
-          <div className="flex flex-col items-start bg-white shadow w-80 h-60 rounded-lg p-4 hover:bg-orange-100 cursor-pointer">
+          <div onClick={() => navigate('/Website')} className="flex flex-col items-start bg-white shadow w-80 h-60 rounded-lg p-4 hover:bg-orange-100 cursor-pointer">
             {/* Square card */}
             <div className="flex flex-col items-left mb-2">
               <FaChrome className="custom-icon mt-5 mr-2 mb-5 text-[#EB7724]" />

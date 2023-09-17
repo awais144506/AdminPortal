@@ -70,7 +70,7 @@ function ComputerScience() {
                 </h2>
               </div>
             </div>
-            <div onClick={() => navigate('/Semester7')}className="bg-white shadow w-60 h-20 rounded-lg p-4 hover:bg-sky-100 cursor-pointer">
+            <div onClick={() => navigate('/ClassRoom')} className="bg-white shadow w-60 h-20 rounded-lg p-4 hover:bg-sky-100 cursor-pointer">
               <div className="flex flex-col items-center mb-2">
      
                 <h2 className="font-semibold text-lg text-[#4E7AC8]">

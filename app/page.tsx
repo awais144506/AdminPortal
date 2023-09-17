@@ -6,9 +6,10 @@ import { AuthProvider } from './pages/api/auth/nextauth';
 import PrivateRoutes from './pages/api/auth/PrivateRoutes';
 import Departments from './pages/Departments/Departments';
 import ComputerScience from './pages/Departments/ComputerScience/ComputerScience';
-import Semester7 from './pages/Departments/ComputerScience/Semester7/Semester7';
 import ClassRoom from './pages/Departments/ComputerScience/Semester7/ClassRoom';
-
+import Website from './pages/Website/Website';
+import Events from './pages/Website/pages/Events';
+import News from './pages/Website/pages/News';
 function App() {
   return (
     <>
@@ -20,8 +21,10 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/Departments" element={<Departments />} />
               <Route path="/ComputerScience" element={<ComputerScience />} />
-              <Route path="/Semester7" element={<Semester7 />} />
               <Route path="/ClassRoom" element={<ClassRoom />} />
+              <Route path="/Website" element={<Website />} />
+              <Route path="/Events" element={<Events/>} />
+              <Route path="/News" element={<News/>} />
             </Route>
           </Routes>
         </AuthProvider>
