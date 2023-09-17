@@ -1,5 +1,7 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaChrome } from 'react-icons/fa';
+import { db, storage } from '@/app/appwrite';
+import { ID } from 'appwrite';
 
 function News() {
     const [events, setEvents] = useState(JSON.parse(localStorage.getItem('events')) || []);
@@ -7,42 +9,64 @@ function News() {
     const [heading, setHeading] = useState('');
     const [description, setDescription] = useState('');
 
-  
+
     const handleDateChange = (e) => {
-      setDate(e.target.value);
+        setDate(e.target.value);
     };
-  
+
     const handleHeadingChange = (e) => {
-      setHeading(e.target.value);
+        setHeading(e.target.value);
     };
-  
+
     const handleDescriptionChange = (e) => {
-      setDescription(e.target.value);
+        setDescription(e.target.value);
     };
-  
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-  
-      const newEvent = {
-        date: date,
-        heading: heading,
-        description: description,
-      };
-  
-      setEvents([...events, newEvent]);
-  
-      setDate('');
-      setHeading('');
-      setDescription('');
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const documentId = ID.unique(); 
+
+            const eventDocument = {
+                date: date,
+                heading: heading,
+                description: description,
+
+            };
+
+            const eventResponse = await db.createDocument('6506cf5aa359dba589cb', '6506d0011351ee9de1ef', documentId, eventDocument);
+            console.log('Event created:', eventResponse);
+            const eventId = eventResponse['$id'];
+            const newEvent = {
+                id: eventId,
+                date: date,
+                heading: heading,
+                description: description,
+
+            };
+
+            setEvents([...events, newEvent]);
+
+            setDate('');
+            setHeading('');
+            setDescription('');
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
-  
+
     const handleDelete = (id) => {
         const updatedEvents = events.filter(event => event.id !== id);
         setEvents(updatedEvents);
+        localStorage.setItem('events', JSON.stringify(updatedEvents)); // Update local storage
     };
+    
+
     useEffect(() => {
-      localStorage.setItem('events', JSON.stringify(events));
+        localStorage.setItem('events', JSON.stringify(events));
     }, [events]);
 
     return (
@@ -103,7 +127,7 @@ function News() {
                             key={index}
                             className="max-w-md bg-white rounded overflow-hidden shadow-lg"
                         >
-                             <div className="px-6 py-4">
+                            <div className="px-6 py-4">
                                 <div className="font-bold text-xl mb-2">Heading: {event.heading}</div>
                                 <p className="text-gray-700 text-base">Description: {event.description}</p>
                                 <p className="text-gray-700 text-base mt-2">Date: {event.date}</p>

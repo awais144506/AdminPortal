@@ -10,6 +10,12 @@ import ClassRoom from './pages/Departments/ComputerScience/Semester7/ClassRoom';
 import Website from './pages/Website/Website';
 import Events from './pages/Website/pages/Events';
 import News from './pages/Website/pages/News';
+import TimeTable from './pages/Website/pages/TimeTable';
+import DateSheets from './pages/Website/pages/DateSheets';
+import Calender from './pages/Website/pages/Calender';
+import RoadMaps from './pages/Website/pages/RoadMaps';
+import Prospectus from './pages/Website/pages/Prospectus';
+import MeritLists from './pages/Website/pages/MeritLists';
 function App() {
   return (
     <>
@@ -25,6 +31,12 @@ function App() {
               <Route path="/Website" element={<Website />} />
               <Route path="/Events" element={<Events/>} />
               <Route path="/News" element={<News/>} />
+              <Route path="/TimeTable" element={<TimeTable/>} />
+              <Route path="/DateSheets" element={<DateSheets/>} />
+              <Route path="/Calender" element={<Calender/>} />
+              <Route path="/RoadMaps" element={<RoadMaps/>} />
+              <Route path="/Prospectus" element={<Prospectus/>} />
+              <Route path="/MeritLists" element={<MeritLists/>} />
             </Route>
           </Routes>
         </AuthProvider>

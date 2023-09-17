@@ -30,7 +30,7 @@ function Website() {
                 </h2>
               </div>
             </div>
-            <div className="bg-white shadow w-80 h-40 rounded-lg p-4 hover:bg-[#EB7724] hover:text-[#fff] cursor-pointer relative">
+            <div onClick={() => navigate('/TimeTable')} className="bg-white shadow w-80 h-40 rounded-lg p-4 hover:bg-[#EB7724] hover:text-[#fff] cursor-pointer relative">
               <div className="flex flex-col items-left  absolute top-12">
 
                 <h2 className="font-semibold text-xl ">
@@ -39,7 +39,7 @@ function Website() {
               </div>
             </div>
 
-            <div className="bg-white shadow w-80 h-40 rounded-lg p-4 hover:bg-[#EB7724] hover:text-[#fff] cursor-pointer relative">
+            <div onClick={() => navigate('/DateSheets')} className="bg-white shadow w-80 h-40 rounded-lg p-4 hover:bg-[#EB7724] hover:text-[#fff] cursor-pointer relative">
               <div className="flex flex-col items-left  absolute top-12">
 
                 <h2 className="font-semibold text-xl ">
@@ -48,7 +48,7 @@ function Website() {
               </div>
             </div>
 
-            <div className="bg-white shadow w-80 h-40 rounded-lg p-4 hover:bg-[#EB7724] hover:text-[#fff] cursor-pointer relative">
+            <div onClick={() => navigate('/Calender')} className="bg-white shadow w-80 h-40 rounded-lg p-4 hover:bg-[#EB7724] hover:text-[#fff] cursor-pointer relative">
               <div className="flex flex-col items-left  absolute top-12">
 
                 <h2 className="font-semibold text-xl ">
@@ -57,7 +57,7 @@ function Website() {
               </div>
             </div>
 
-            <div className="bg-white shadow w-80 h-40 rounded-lg p-4 hover:bg-[#EB7724] hover:text-[#fff] cursor-pointer relative">
+            <div onClick={() => navigate('/RoadMaps')} className="bg-white shadow w-80 h-40 rounded-lg p-4 hover:bg-[#EB7724] hover:text-[#fff] cursor-pointer relative">
               <div className="flex flex-col items-left  absolute top-12">
 
                 <h2 className="font-semibold text-xl ">
@@ -66,7 +66,7 @@ function Website() {
               </div>
             </div>
 
-            <div className="bg-white shadow w-80 h-40 rounded-lg p-4 hover:bg-[#EB7724] hover:text-[#fff] cursor-pointer relative">
+            <div onClick={() => navigate('/Prospectus')} className="bg-white shadow w-80 h-40 rounded-lg p-4 hover:bg-[#EB7724] hover:text-[#fff] cursor-pointer relative">
               <div className="flex flex-col items-left  absolute top-12">
 
                 <h2 className="font-semibold text-xl ">
@@ -74,7 +74,7 @@ function Website() {
                 </h2>
               </div>
             </div>
-            <div className="bg-white shadow w-80 h-40 rounded-lg p-4 hover:bg-[#EB7724] hover:text-[#fff] cursor-pointer relative">
+            <div onClick={() => navigate('/MeritLists')} className="bg-white shadow w-80 h-40 rounded-lg p-4 hover:bg-[#EB7724] hover:text-[#fff] cursor-pointer relative">
               <div className="flex flex-col items-left  absolute top-12">
 
                 <h2 className="font-semibold text-xl ">
