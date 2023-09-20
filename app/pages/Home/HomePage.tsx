@@ -43,7 +43,7 @@ function Home() {
             {/* Department content here */}
           </div>
     
-          <div className="flex flex-col items-start bg-white shadow w-80 h-60 rounded-lg p-4 hover:bg-green-100 cursor-pointer">
+          <div onClick={() => navigate('/Faculty')} className="flex flex-col items-start bg-white shadow w-80 h-60 rounded-lg p-4 hover:bg-green-100 cursor-pointer">
             
             {/* Square card */}
             <div className="flex flex-col items-left mb-2">
@@ -60,7 +60,7 @@ function Home() {
             </div>
             {/* Department content here */}
           </div>
-          <div className="flex flex-col items-start bg-white shadow w-80 h-60 rounded-lg p-4 hover:bg-red-100 cursor-pointer">
+          <div onClick={() => navigate('/Staff')} className="flex flex-col items-start bg-white shadow w-80 h-60 rounded-lg p-4 hover:bg-red-100 cursor-pointer">
             {/* Square card */}
             <div className="flex flex-col items-left mb-2">
               <FaUsers  className="custom-icon mt-5 mr-2 mb-5 text-[#F6508E]"/>

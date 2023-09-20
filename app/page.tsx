@@ -16,6 +16,8 @@ import Calender from './pages/Website/pages/Calender';
 import RoadMaps from './pages/Website/pages/RoadMaps';
 import Prospectus from './pages/Website/pages/Prospectus';
 import MeritLists from './pages/Website/pages/MeritLists';
+import Faculty from './pages/faculty/teachers/page';
+import Staff from './pages/Staff/page';
 function App() {
   return (
     <>
@@ -37,6 +39,8 @@ function App() {
               <Route path="/RoadMaps" element={<RoadMaps/>} />
               <Route path="/Prospectus" element={<Prospectus/>} />
               <Route path="/MeritLists" element={<MeritLists/>} />
+              <Route path="/Faculty" element={<Faculty />} />
+              <Route path="/Staff" element={<Staff />} />
             </Route>
           </Routes>
         </AuthProvider>
