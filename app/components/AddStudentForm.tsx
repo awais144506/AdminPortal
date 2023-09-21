@@ -21,6 +21,9 @@ const AddStudentForm: React.FC<AddStudentFormProps> = ({ onClose, onAddStudent }
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [image, setImage] = useState(null);
+
+
+  
   function dataURItoBlob(dataURI: string) {
     const byteString = atob(dataURI.split(',')[1]);
     const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
